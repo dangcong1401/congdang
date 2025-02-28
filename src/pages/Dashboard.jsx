@@ -73,9 +73,9 @@ const Dashboard = () => {
           <button className="text-green-400 text-sm hover:underline">See all</button>
         </div>
         <div className="flex space-x-3 mt-2">
-          {[1, 2, 3, 4, 5].map((index) => (
+          {[1, 2, 3, 4, 5, 6, 7 ].map((index) => (
             <img key={index} src={`https://i.pravatar.cc/40?img=${index}`} className="w-10 h-10 rounded-full border-2 border-gray-700 hover:border-green-400" alt="Avatar" />
-          ))}
+          ))}, 
         </div>
       </div>
 
