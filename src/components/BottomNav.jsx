@@ -11,11 +11,17 @@ const BottomNav = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 w-full bg-gray-900 p-3 flex justify-around text-white">
+    <nav className="fixed bottom-0 left-0 w-full bg-gray-800 p-3 flex justify-around text-white rounded-t-2xl shadow-lg">
       {navItems.map(({ to, icon, label }) => (
-        <Link key={to} to={to} className={`flex flex-col items-center ${location.pathname === to ? "text-green-400" : "text-gray-400"}`}>
+        <Link
+          key={to}
+          to={to}
+          className={`flex flex-col items-center p-2 transition-all duration-200 ${
+            location.pathname === to ? "text-green-400" : "text-gray-400 hover:text-white"
+          } active:scale-95`}
+        >
           {icon}
-          <span className="text-xs">{label}</span>
+          <span className="text-xs mt-1">{label}</span>
         </Link>
       ))}
     </nav>
