@@ -10,7 +10,7 @@ const exchangeRates = {
 const Exchange = () => {
   const [amount, setAmount] = useState("1000");
   const [fromCurrency] = useState("USD");
-  const [toCurrency, ] = useState("BDT");
+  const [toCurrency] = useState("BDT");
 
   const convertedAmount = (amount * (exchangeRates[fromCurrency][toCurrency] || 1)).toFixed(2);
 
@@ -26,60 +26,64 @@ const Exchange = () => {
     }
   };
 
-  return (  
-    <div className="h-screen bg-black text-white p-5 flex flex-col">
+  return (
+    <div className="h-screen bg-gray-950 text-white p-5 flex flex-col">
       {/* Header */}
       <div className="flex items-center space-x-3">
-        <button className="text-gray-400">
+        <button className="text-gray-400 hover:text-white transition-all">
           <ChevronLeft size={24} />
         </button>
         <h1 className="text-xl font-semibold">Exchange</h1>
       </div>
 
       {/* Currency Details */}
-      <div className="bg-gray-900 p-4 rounded-lg mt-4 space-y-3">
+      <div className="bg-gray-900 p-5 rounded-xl mt-4 space-y-4 shadow-lg">
         {/* From */}
-        <div className="flex justify-between items-center bg-gray-800 p-3 rounded-lg">
+        <div className="flex justify-between items-center bg-gray-800 p-4 rounded-lg hover:shadow-lg hover:shadow-green-400/50 transition">
           <div>
             <p className="text-gray-400 text-sm">From</p>
-            <h2 className="text-xl font-bold">{amount}</h2>
+            <h2 className="text-2xl font-bold">{amount}</h2>
           </div>
-          <button className="flex items-center space-x-2">
-            <span>{fromCurrency}</span>
-            <ChevronDown size={16} className="text-gray-400" />
+          <button className="flex items-center space-x-2 hover:text-green-400 transition-all">
+            <span className="font-semibold">{fromCurrency}</span>
+            <ChevronDown size={16} />
           </button>
         </div>
 
         {/* To */}
-        <div className="flex justify-between items-center bg-gray-800 p-3 rounded-lg">
+        <div className="flex justify-between items-center bg-gray-800 p-4 rounded-lg hover:shadow-lg hover:shadow-green-400/50 transition">
           <div>
             <p className="text-gray-400 text-sm">To</p>
-            <h2 className="text-xl font-bold">{convertedAmount}</h2>
+            <h2 className="text-2xl font-bold">{convertedAmount}</h2>
           </div>
-          <button className="flex items-center space-x-2">
-            <span>{toCurrency}</span>
-            <ChevronDown size={16} className="text-gray-400" />
+          <button className="flex items-center space-x-2 hover:text-green-400 transition-all">
+            <span className="font-semibold">{toCurrency}</span>
+            <ChevronDown size={16} />
           </button>
         </div>
 
         {/* Network Fees */}
-        <p className="text-gray-400 text-sm text-right">Network Fees: <span className="text-white">2.59 USD</span></p>
+        <p className="text-gray-400 text-sm text-right">
+          Network Fees: <span className="text-white">2.59 USD</span>
+        </p>
       </div>
 
       {/* Exchange Rate */}
-      <div className="mt-4">
-        <p className="text-gray-400 text-sm">Rate</p>
-        <p className="font-bold">1 {fromCurrency} = {exchangeRates[fromCurrency][toCurrency]} {toCurrency}</p>
+      <div className="mt-5">
+        <p className="text-gray-400 text-sm">Exchange Rate</p>
+        <p className="font-bold text-lg">
+          1 {fromCurrency} = {exchangeRates[fromCurrency][toCurrency]} {toCurrency}
+        </p>
         <p className="text-gray-400 text-xs mt-1">Feb 10, 12:20 PM UTC</p>
         <p className="text-green-400 text-xs">▲ +11.15% (1Y)</p>
       </div>
 
       {/* Number Pad */}
-      <div className="grid grid-cols-3 gap-3 mt-6 flex-grow">
+      <div className="grid grid-cols-3 gap-4 mt-6 flex-grow">
         {["1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "del"].map((num) => (
           <button
             key={num}
-            className="bg-gray-800 p-4 rounded-lg text-xl font-bold flex items-center justify-center"
+            className="bg-gray-800 p-5 rounded-lg text-2xl font-bold flex items-center justify-center hover:bg-gray-700 hover:shadow-lg hover:shadow-green-400/50 transition-all"
             onClick={() => handleKeyPress(num)}
           >
             {num === "del" ? "⌫" : num}
@@ -88,7 +92,7 @@ const Exchange = () => {
       </div>
 
       {/* Exchange Button */}
-      <button className="bg-green-500 text-black text-lg font-bold p-4 rounded-lg mt-4">
+      <button className="bg-green-500 text-black text-lg font-bold p-4 rounded-lg mt-4 hover:bg-green-600 transition-all">
         Exchange Money
       </button>
     </div>

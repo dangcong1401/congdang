@@ -40,10 +40,13 @@ const Dashboard = () => {
           </button>
         </div>
 
-        {/* Action Buttons */}
+        {/* Action Buttons with Glow Effect */}
         <div className="grid grid-cols-4 gap-3 mt-5">
           {[{ icon: Wallet, label: "Withdraw" }, { icon: Plus, label: "Deposit" }, { icon: Send, label: "Pay" }, { icon: Scan, label: "Scan" }].map((btn, index) => (
-            <button key={index} className="bg-gray-800 p-3 rounded-lg flex flex-col items-center hover:bg-gray-700">
+            <button
+              key={index}
+              className="bg-gray-800 p-3 rounded-lg flex flex-col items-center hover:bg-gray-700 hover:shadow-lg hover:shadow-green-400/50 transition-all duration-300"
+            >
               <btn.icon size={28} className="text-green-400" />
               <span className="text-sm mt-1 text-gray-300">{btn.label}</span>
             </button>
@@ -73,28 +76,31 @@ const Dashboard = () => {
           <button className="text-green-400 text-sm hover:underline">See all</button>
         </div>
         <div className="flex space-x-3 mt-2">
-          {[1, 2, 3, 4, 5, 6, 7 ].map((index) => (
+          {[1, 2, 3, 4, 5, 6, 7].map((index) => (
             <img key={index} src={`https://i.pravatar.cc/40?img=${index}`} className="w-10 h-10 rounded-full border-2 border-gray-700 hover:border-green-400" alt="Avatar" />
-          ))}, 
+          ))}
         </div>
       </div>
 
-      {/* Transaction Filters */}
+      {/* Transaction Filters with Glow Effect */}
       <div className="flex mt-4 space-x-2">
         {["All", "Sent", "Request", "Transfer", "Remit"].map((filter, index) => (
           <button
             key={index}
-            className={`px-4 py-2 rounded-lg text-sm ${index === 0 ? "bg-green-500 text-black" : "bg-gray-800 text-gray-300 hover:bg-gray-700"}`}
+            className={`px-4 py-2 rounded-lg text-sm ${index === 0 ? "bg-green-500 text-black" : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:shadow-lg hover:shadow-green-400/50 transition-all duration-300"}`}
           >
             {filter}
           </button>
         ))}
       </div>
 
-      {/* Transactions List */}
+      {/* Transactions List with Glow Effect */}
       <div className="bg-gray-900 p-5 rounded-xl space-y-3 flex-grow overflow-auto shadow-md">
         {transactions.map((tx) => (
-          <div key={tx.id} className="flex items-center justify-between p-2 hover:bg-gray-800 rounded-lg">
+          <div
+            key={tx.id}
+            className="flex items-center justify-between p-2 hover:bg-gray-800 hover:shadow-lg hover:shadow-green-400/50 transition-all duration-300 rounded-lg"
+          >
             <div className="flex items-center space-x-3">
               <img src={tx.avatar} alt="User Avatar" className="w-10 h-10 rounded-full border-2 border-gray-700" />
               <div>
