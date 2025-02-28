@@ -28,29 +28,32 @@ const payments = [
 
 const Statistics = () => {
   const [activeTab, setActiveTab] = useState("income");
-  const data = activeTab === "income" ? incomeData : spendingData;
+  const dataMap = { income: incomeData, spending: spendingData };
+  const data = dataMap[activeTab];
   const totalAmount = data.reduce((acc, cur) => acc + (cur.income || cur.spending), 0);
 
   return (
-    <div className="h-screen bg-black text-white p-6 flex flex-col space-y-6">
+    <div className="h-screen bg-gray-900 text-white p-6 flex flex-col space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <button className="text-gray-400 hover:text-white">
+        <button className="text-gray-400 hover:text-white transition duration-300">
           <ChevronLeft size={28} />
         </button>
         <h1 className="text-2xl font-bold">Statistics</h1>
-        <button className="text-gray-400 hover:text-white">
+        <button className="text-gray-400 hover:text-white transition duration-300">
           <MoreVertical size={28} />
         </button>
       </div>
 
       {/* Toggle Income / Spending */}
       <div className="flex bg-gray-800 p-2 rounded-xl">
-        {['income', 'spending'].map(tab => (
+        {["income", "spending"].map((tab) => (
           <button
             key={tab}
             className={`flex-1 py-3 text-center rounded-xl text-lg transition-all duration-300 ${
-              activeTab === tab ? "bg-green-500 text-black font-bold shadow-lg" : "text-gray-400 hover:bg-gray-700"
+              activeTab === tab
+                ? "bg-green-500 text-black font-bold shadow-lg"
+                : "text-gray-400 hover:bg-gray-700"
             }`}
             onClick={() => setActiveTab(tab)}
           >
@@ -59,10 +62,12 @@ const Statistics = () => {
         ))}
       </div>
 
-      {/* Total Income / Spending */}
+      {/* Total Amount */}
       <div className="text-center">
         <p className="text-gray-400 text-lg">Total {activeTab === "income" ? "Income" : "Spending"}</p>
-        <h2 className="text-4xl font-extrabold">${totalAmount.toLocaleString()}</h2>
+        <h2 className="text-5xl font-extrabold text-green-400 transition-all duration-300">
+          ${totalAmount.toLocaleString()}
+        </h2>
       </div>
 
       {/* Time Filter */}
@@ -70,7 +75,7 @@ const Statistics = () => {
         {["D", "W", "M", "Y"].map((time) => (
           <button
             key={time}
-            className="py-2 px-4 rounded-lg text-lg transition-all duration-300 text-gray-400 hover:bg-gray-700 hover:text-white"
+            className="py-2 px-5 rounded-lg text-lg transition-all duration-300 bg-gray-800 text-gray-400 hover:bg-green-500 hover:text-black"
           >
             {time}
           </button>
@@ -78,27 +83,33 @@ const Statistics = () => {
       </div>
 
       {/* Chart */}
-      <div className="mt-5 h-56 bg-gray-800 p-5 rounded-xl shadow-lg">
+      <div className="mt-5 h-56 bg-gray-800 p-5 rounded-xl shadow-xl">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
             <XAxis dataKey="month" tick={{ fill: "white" }} />
             <YAxis tick={{ fill: "white" }} />
-            <Tooltip contentStyle={{ backgroundColor: "#333", color: "white" }} />
-            <Bar dataKey={activeTab} fill="#32CD32" radius={[8, 8, 0, 0]} />
+            <Tooltip contentStyle={{ backgroundColor: "#222", color: "white", borderRadius: "8px", padding: "10px" }} />
+            <Bar dataKey={activeTab} fill="url(#gradient)" radius={[8, 8, 0, 0]} />
+            <defs>
+              <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#32CD32" />
+                <stop offset="100%" stopColor="#1B5E20" />
+              </linearGradient>
+            </defs>
           </BarChart>
         </ResponsiveContainer>
       </div>
 
       {/* Scheduled Payments */}
       <div className="mt-6">
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <h2 className="text-xl font-semibold">Scheduled Payments</h2>
-          <button className="text-gray-400 text-md hover:text-white">See all</button>
+          <button className="text-green-400 text-md hover:text-white transition duration-300">See all</button>
         </div>
 
         <div className="flex space-x-4 mt-4 overflow-x-auto pb-2">
           {payments.map((p) => (
-            <div key={p.id} className="bg-gray-800 p-5 rounded-xl flex-1 text-center min-w-[120px] shadow-lg">
+            <div key={p.id} className="bg-gray-800 p-5 rounded-xl flex-1 text-center min-w-[120px] shadow-lg border border-gray-700 hover:border-green-500 transition-all duration-300">
               <p className="text-white text-lg font-medium">{p.name}</p>
               <p className="text-gray-400 text-md">{p.price}</p>
             </div>
